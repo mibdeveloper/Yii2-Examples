@@ -1,3 +1,1 @@
-end test
-OK
-OK2
+yii 2 exmples
