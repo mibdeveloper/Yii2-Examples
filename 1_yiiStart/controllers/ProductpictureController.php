@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\model\ProductPicture;
+use app\models\ProductPicture;
 use app\models\ProductPictureSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
