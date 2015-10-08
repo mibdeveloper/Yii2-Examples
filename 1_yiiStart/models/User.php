@@ -81,7 +81,10 @@ class User extends \yii\db\ActiveRecord
     public function __set($name, $value) {
         if ($name === 'languages') {
     //        echo "<br><br><br><br>"."languages";
-            $this->setAttribute('languages', implode(",",$value));
+            if(is_array($value))
+                $this->setAttribute('languages', implode(",",$value));
+            else 
+                $this->setAttribute('languages', "");
             //die("rtyjrtyjr");
         } else {
             parent::__set($name, $value);
