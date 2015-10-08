@@ -56,7 +56,17 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= $content ?>
+
+        <div class="row">
+            <div class="col-md-2" style="border: 1px solid #000;">
+            <?= Html::a("Categories Link","category");?>
+            
+            </div>
+            <div class="col-md-10">
+                <?= $content ?>
+            </div>  
+        </div>
+        
     </div>
 </div>
 

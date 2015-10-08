@@ -47,7 +47,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parentid' => 'Parentid',
+            'parentid' => 'Parent Category',
             'title' => 'Title',
             'description' => 'Description',
         ];
@@ -103,8 +103,8 @@ class SortList extends Object
         foreach ($this->data as $item) {
             if ($category_id == $item['id']) {
                 $prefix = $prefix ? $this->prefix . $prefix : $item['title'];
-                if ($item['parent_id']) {
-                    return $this->getPath($item['parent_id'], $prefix);
+                if ($item['parentid']) {
+                    return $this->getPath($item['parentid'], $prefix);
                 } else {
                     return $prefix;
                 }
@@ -118,7 +118,7 @@ class SortList extends Object
         $data = [];
 
         foreach ($this->data as $item) {
-            if ($parent_id == $item['parent_id']) {
+            if ($parent_id == $item['parentid']) {
                 $data[] = [
                     'id' => $item['id'],
                     'title' => $this->getPath($item['id'])
@@ -126,7 +126,6 @@ class SortList extends Object
                 $data = array_merge($data, $this->getList($item['id']));
             }
         }
-
         return $data;
     }
 }
