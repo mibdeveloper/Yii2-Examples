@@ -59,8 +59,9 @@ AppAsset::register($this);
 
         <div class="row">
             <div class="col-md-2" style="border: 1px solid #000;">
-            <?= Html::a("Categories Link","category");?>
-            
+            <?= Html::a("Categories Link","/1_yiiStart/web/category");?><br />
+            <?= Html::a("Products","/1_yiiStart/web/product");?><br />
+            <?= Html::a("Stock","/1_yiiStart/web/stock");?>
             </div>
             <div class="col-md-10">
                 <?= $content ?>
