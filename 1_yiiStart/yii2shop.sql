@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Окт 08 2015 г., 18:32
+-- Время создания: Окт 15 2015 г., 18:54
 -- Версия сервера: 5.5.41-log
 -- Версия PHP: 5.4.35
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `Category` (
   `parentid` int(11) DEFAULT NULL,
   `title` varchar(200) NOT NULL,
   `description` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Дамп данных таблицы `Category`
@@ -39,7 +39,52 @@ CREATE TABLE IF NOT EXISTS `Category` (
 
 INSERT INTO `Category` (`id`, `parentid`, `title`, `description`) VALUES
 (10, NULL, 'Main 2', 'kjhgjhg'),
-(13, NULL, 'Chil1', ';''lk;l;');
+(13, NULL, 'Chil1', ';''lk;l;'),
+(14, 10, 'SubCat1', 'qwerqwerqwer'),
+(15, 14, 'SubSubCat1', 'l;kj;lkj'),
+(16, 10, 'SubCat2', ''),
+(17, 10, 'SubCat3', 'lkj;lkjl');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Product`
+--
+
+CREATE TABLE IF NOT EXISTS `Product` (
+  `id` int(11) NOT NULL,
+  `categoryid` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `incoming_price` double NOT NULL,
+  `price` double NOT NULL,
+  `article` varchar(50) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `ProductPicture`
+--
+
+CREATE TABLE IF NOT EXISTS `ProductPicture` (
+  `id` int(11) NOT NULL,
+  `productid` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Stock`
+--
+
+CREATE TABLE IF NOT EXISTS `Stock` (
+  `id` int(11) NOT NULL,
+  `productid` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -89,6 +134,24 @@ ALTER TABLE `Category`
   ADD PRIMARY KEY (`id`), ADD KEY `parentid` (`parentid`);
 
 --
+-- Индексы таблицы `Product`
+--
+ALTER TABLE `Product`
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `categoryid` (`categoryid`);
+
+--
+-- Индексы таблицы `ProductPicture`
+--
+ALTER TABLE `ProductPicture`
+  ADD PRIMARY KEY (`id`), ADD KEY `productid` (`productid`);
+
+--
+-- Индексы таблицы `Stock`
+--
+ALTER TABLE `Stock`
+  ADD PRIMARY KEY (`id`), ADD KEY `productid` (`productid`);
+
+--
 -- Индексы таблицы `User`
 --
 ALTER TABLE `User`
@@ -102,7 +165,22 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT для таблицы `Category`
 --
 ALTER TABLE `Category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT для таблицы `Product`
+--
+ALTER TABLE `Product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `ProductPicture`
+--
+ALTER TABLE `ProductPicture`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `Stock`
+--
+ALTER TABLE `Stock`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT для таблицы `User`
 --
@@ -117,6 +195,24 @@ ALTER TABLE `User`
 --
 ALTER TABLE `Category`
 ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`parentid`) REFERENCES `Category` (`id`) ON DELETE SET NULL;
+
+--
+-- Ограничения внешнего ключа таблицы `Product`
+--
+ALTER TABLE `Product`
+ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`categoryid`) REFERENCES `Category` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `ProductPicture`
+--
+ALTER TABLE `ProductPicture`
+ADD CONSTRAINT `productpicture_ibfk_1` FOREIGN KEY (`productid`) REFERENCES `Product` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `Stock`
+--
+ALTER TABLE `Stock`
+ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`productid`) REFERENCES `Product` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
