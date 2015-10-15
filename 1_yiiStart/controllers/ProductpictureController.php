@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\ProductPicture;
 use app\models\ProductPictureSearch;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,6 +33,8 @@ class ProductpictureController extends Controller
      */
     public function actionIndex()
     {
+
+
         $searchModel = new ProductPictureSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +51,8 @@ class ProductpictureController extends Controller
      */
     public function actionView($id)
     {
+
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
